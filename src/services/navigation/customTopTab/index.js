@@ -91,7 +91,7 @@ class CustomTopTab extends Component {
         style={{
           backgroundColor: 'skyblue',
           paddingTop: sizes.statusBarHeight * 1.5,
-          transform: [{scaleX: -1}],
+          // transform: [{scaleX: -1}],
         }}>
         <View style={styles.container}>
           <Animated.View

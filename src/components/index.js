@@ -16,5 +16,6 @@ export * from './loaders'
 export * from './modals'
 export * from './modals'
 export * from './customBottomSheet'
+export * from './bottomSheet'
 
 

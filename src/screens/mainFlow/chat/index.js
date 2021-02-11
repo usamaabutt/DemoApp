@@ -5,22 +5,46 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import {height, width} from 'react-native-dimension';
 import {colors} from '../../../services';
 import LinearGradient from 'react-native-linear-gradient';
-import Bike from 'react-native-vector-icons/MaterialCommunityIcons';
-import Car from 'react-native-vector-icons/FontAwesome';
-import Modal from 'react-native-modal';
-const Chat = (props) => {
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+
+const Chat = ({navigation}) => {
   let scrollRef = useRef(null);
 
   const [enableScroll, setEnableScroll] = useState(false);
   const [showHideModal, setShowHideModal] = useState(false);
+  const [showShadow, setShadow] = useState(false);
+  const [ShadowValue, setShadowValue] = useState(0);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      scrollRef.current.snapTo(1);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, [navigation]);
+
+  const config = {
+    velocityThreshold: 0.4,
+    directionalOffsetThreshold: 80
+  };
+
   const renderList = () => {
     return (
       <ScrollView
         scrollEnabled={enableScroll}
+        // bounces={false}
+        bouncesZoom={false}
         onScroll={(event) => {
-          if (event.nativeEvent.contentOffset.y <= 0) {
+          setShadowValue(event.nativeEvent.contentOffset.y);
+          if (0 === event.nativeEvent.contentOffset.y) {
+            setTimeout(() => setShadow(true), 300)
+          } else {
+            setShadow(false);
+          }
+          if (event.nativeEvent.contentOffset.y <= -80) {
             scrollRef.current.snapTo(0);
-            // setEnableScroll(false);
+            setEnableScroll(false);
           }
         }}
         scrollEventThrottle={5}
@@ -45,6 +69,23 @@ const Chat = (props) => {
   };
   return (
     <Wrapper flex={1} style={{backgroundColor: 'skyblue', zIndex: 100}}>
+      <GestureRecognizer
+      // onSwipe={(direction, state) => {
+      //   onSwipe(direction, state);
+      //   if (state) {
+      //     // console.log('state1',state.moveX)
+      //   }
+      //    console.log('direction, state', direction, state)
+      // }}
+      // onSwipeUp={(state) => this.onSwipeUp(state)}
+      onSwipeDown={(state) => console.log('swipe down', state)}
+      // onSwipeLeft={(state) =>{ console.log('swipe left', state), navigation.navigate('home')}}
+      onSwipeRight={(state) => { console.log('swipe right', state), navigation.navigate('home')}}
+      config={config}
+      style={{
+        flex: 1,
+        // backgroundColor: 'red',
+      }}>
       <BottomSheet
         ref={(ref) => {
           scrollRef.current = ref;
@@ -57,11 +98,14 @@ const Chat = (props) => {
         }}
         onCloseStart={() => {
           setShowHideModal(false);
+          setEnableScroll(false);
+          setShadow(false);
+          setShadowValue(0);
         }}
         onOpenEnd={() => {
           setShowHideModal(true);
         }}
-        snapPoints={[height(20), height(85)]}
+        snapPoints={[height(40), height(85)]}
         borderRadius={20}
         initialSnap={0}
         renderContent={() => {
@@ -71,8 +115,8 @@ const Chat = (props) => {
               <LinearGradient
                 colors={['white', '#ffffff00']}
                 style={{
-                  width: width(100),
-                  height: 30,
+                  width: width(98),
+                  height: showShadow ? 1:35,
                   backgroundColor: 'transparent',
                   position: 'absolute',
                   zIndex: 300,
@@ -86,6 +130,7 @@ const Chat = (props) => {
           );
         }}
       />
+      </GestureRecognizer>
     </Wrapper>
   );
 };
@@ -93,7 +138,7 @@ const Chat = (props) => {
 const styles = StyleSheet.create({
   cardContainer: {
     width: '80%',
-    height: 50,
+    height: 150,
     backgroundColor: 'pink',
     marginVertical: 10,
     borderRadius: 10,
@@ -116,6 +161,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     padding: 16,
     height: height(85),
+    width: width(100),
+    alignSelf: 'center',
     zIndex: 500,
     ...Platform.select({
       ios: {

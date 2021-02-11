@@ -11,6 +11,7 @@ const TopTab = createMaterialTopTabNavigator();
 const MainTopTab = () => {
   return (
     <TopTab.Navigator
+      swipeEnabled={false}
       tabBar={(props) => <CustomTopTab {...props} />}
       // initialRouteName={routes.home}
     >
