@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, Platform, StyleSheet, ScrollView, Text} from 'react-native';
+import {View, Platform, StyleSheet, Text} from 'react-native';
 import {Wrapper} from '../../../components';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {height, width} from 'react-native-dimension';
 import {colors} from '../../../services';
 import LinearGradient from 'react-native-linear-gradient';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const Chat = ({navigation}) => {
   let scrollRef = useRef(null);
@@ -42,7 +43,8 @@ const Chat = ({navigation}) => {
           } else {
             setShadow(false);
           }
-          if (event.nativeEvent.contentOffset.y <= -80) {
+          const x = Platform.OS === 'ios' ? -80 : -2;
+          if (event.nativeEvent.contentOffset.y <= x) {
             scrollRef.current.snapTo(0);
             setEnableScroll(false);
           }
@@ -79,7 +81,7 @@ const Chat = ({navigation}) => {
       // }}
       // onSwipeUp={(state) => this.onSwipeUp(state)}
       onSwipeDown={(state) => console.log('swipe down', state)}
-      // onSwipeLeft={(state) =>{ console.log('swipe left', state), navigation.navigate('home')}}
+      onSwipeLeft={(state) =>{ console.log('swipe left', state), navigation.navigate('home')}}
       onSwipeRight={(state) => { console.log('swipe right', state), navigation.navigate('home')}}
       config={config}
       style={{

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Platform, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, Platform, StyleSheet, Text } from 'react-native';
 import { Wrapper } from '../../../components';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { height, width } from 'react-native-dimension';
@@ -8,7 +8,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import Bike from 'react-native-vector-icons/MaterialCommunityIcons';
 import Car from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
+import {ScrollView} from 'react-native-gesture-handler';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import { log } from 'react-native-reanimated';
 
 const Home = ({navigation}) => {
   let scrollRef = useRef(null);
@@ -18,14 +20,14 @@ const Home = ({navigation}) => {
   const [showShadow, setShadow] = useState(false);
   const [ShadowValue, setShadowValue] = useState(0);
 
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('focus', () => {
-  //     scrollRef.current.snapTo(1);
-  //   });
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      scrollRef.current.snapTo(1);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const onSwipe = (gestureName, gestureState) => {
     const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
@@ -57,13 +59,15 @@ const Home = ({navigation}) => {
       <ScrollView
         scrollEnabled={enableScroll}
         onScroll={(event) => {
+          console.log('event value', event.nativeEvent.contentOffset)
           setShadowValue(event.nativeEvent.contentOffset.y);
           if (0 === event.nativeEvent.contentOffset.y) { //ShadowValue >= event.nativeEvent.contentOffset.y
             setTimeout(() => setShadow(true), 300)
           } else {
             setShadow(false);
           }
-          if (event.nativeEvent.contentOffset.y <= -80) {
+          const x = Platform.OS === 'ios' ? -80 : -2;
+          if (event.nativeEvent.contentOffset.y <= x) {
             scrollRef.current.snapTo(0);
             setEnableScroll(false);
           }

@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Animated,
+  Platform
 } from 'react-native';
 import { IconWithText } from '../../../components';
 import { height, width, totalSize } from 'react-native-dimension';
@@ -103,7 +104,7 @@ class CustomTopTab extends Component {
       <View
         style={{
           backgroundColor: 'skyblue',
-          paddingTop: sizes.statusBarHeight * 1.5,
+          paddingTop: Platform.OS === 'ios' ? sizes.statusBarHeight * 1.5 : 0,
           // transform: [{scaleX: -1}],
         }}>
         <View style={styles.container}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, View} from 'react-native';
+import {Image, Platform} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {routes, headers} from '../../constants';
 import {Home, Promos, Chat} from '../../../screens/mainFlow';
@@ -11,7 +11,7 @@ const TopTab = createMaterialTopTabNavigator();
 const MainTopTab = () => {
   return (
     <TopTab.Navigator
-      swipeEnabled={false}
+      swipeEnabled={Platform.OS === 'ios' ? false : true}
       tabBar={(props) => <CustomTopTab {...props} />}
       // initialRouteName={routes.home}
     >
