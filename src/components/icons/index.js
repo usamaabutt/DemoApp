@@ -21,7 +21,7 @@ export const BackIcon = ({ style, onPress, size }) => {
         />
     );
 }
-export const IconButton = ({style, onPress, iconSize, iconColor, iconName, iconType, buttonColor}) => {
+export const IconButton = ({ style, onPress, iconSize, iconColor, iconName, iconType, buttonColor }) => {
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -36,7 +36,7 @@ export const IconButton = ({style, onPress, iconSize, iconColor, iconName, iconT
         </TouchableOpacity>
     );
 }
-export const MenuIcon = ({style, onPress, color, size }) => {
+export const MenuIcon = ({ style, onPress, color, size }) => {
     return (
         <Icon
             name="menu"
@@ -51,7 +51,7 @@ export const MenuIcon = ({style, onPress, color, size }) => {
         />
     );
 }
-export const FilterIcon = ({style, onPress, color, size}) => {
+export const FilterIcon = ({ style, onPress, color, size }) => {
     return (
         <Icon
             name="options"
@@ -66,7 +66,7 @@ export const FilterIcon = ({style, onPress, color, size}) => {
         />
     );
 }
-export const CustomIcon = ({icon, size, animation, duration, color }) => {
+export const CustomIcon = ({ icon, size, animation, duration, color }) => {
     const defaulSize = totalSize(5)
     return (
         <Animatable.View animation={animation} duration={duration}>
@@ -78,7 +78,7 @@ export const CustomIcon = ({icon, size, animation, duration, color }) => {
         </Animatable.View>
     );
 }
-export const TouchableCustomIcon = ({icon, size, animation, duration, color, onPress}) => {
+export const TouchableCustomIcon = ({ icon, size, animation, duration, color, onPress }) => {
     const defaulSize = totalSize(5)
     return (
         <TouchableOpacity onPress={onPress}>
@@ -93,12 +93,17 @@ export const TouchableCustomIcon = ({icon, size, animation, duration, color, onP
     );
 }
 
-export const IconWithText = ({text,disabled, containerStyle, title, customIcon, onPress, tintColor, iconName, iconType, iconSize, textStyle, titleStyle, direction, iconStyle}) => {
+export const IconWithText = ({ text, disabled, containerStyle, title, customIcon, onPress, tintColor, iconName, iconType, iconSize, textStyle, titleStyle, direction, iconStyle }) => {
+    let defaulSize = totalSize(2.5);
     return (
         <TouchableOpacity disabled={disabled} activeOpacity={1} onPress={onPress} style={[{ flexDirection: direction ? direction : 'row', alignItems: 'center', }, containerStyle]}>
             {
                 customIcon ?
-                    <CustomIcon icon={customIcon} size={iconSize ? iconSize : totalSize(2)} color={tintColor ? tintColor : colors.appColor1} />
+                    <Image
+                        source={iconName}
+                        resizeMode="contain"
+                        style={{ tintColor: tintColor }}
+                    />
                     :
                     <Icon name={iconName ? iconName : 'email'} type={iconType ? iconType : 'material-community'} size={iconSize ? iconSize : totalSize(2)} color={tintColor ? tintColor : colors.appTextColor1} iconStyle={iconStyle} />
             }

@@ -11,7 +11,7 @@ const TopTab = createMaterialTopTabNavigator();
 const MainTopTab = () => {
   return (
     <TopTab.Navigator
-      swipeEnabled={Platform.OS === 'ios' ? false : true}
+      swipeEnabled={true}
       tabBar={(props) => <CustomTopTab {...props} />}
       // initialRouteName={routes.home}
     >

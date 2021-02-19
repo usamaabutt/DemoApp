@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { IconWithText } from '../../../components';
 import { height, width, totalSize } from 'react-native-dimension';
-import { appStyles, sizes } from '../../utilities';
+import { appStyles, sizes, appIcons } from '../../utilities';
 
 class CustomTopTab extends Component {
   constructor(props) {
@@ -19,19 +19,19 @@ class CustomTopTab extends Component {
       tabs: [
         {
           title: 'Promos',
-          iconName: 'tag',
+          iconName: appIcons.promo,
           iconType: 'ionicon',
           route: 'promos',
         },
         {
           title: 'Home',
-          iconName: 'home',
+          iconName: appIcons.home,
           iconType: 'ionicon',
           route: 'home',
         },
         {
           title: 'Chat',
-          iconName: 'comment',
+          iconName: appIcons.chat,
           iconType: 'ionicon',
           route: 'chat',
         },
@@ -85,9 +85,10 @@ class CustomTopTab extends Component {
   }
   render() {
     const { state, descriptors, navigation } = this.props;
-    //console.log("state==>", state)
+    console.log("state==>", state);
     const { routes, index } = state;
     const activeIndex = index;
+    console.log("activeIndex==>", activeIndex)
     const {
       tabs,
       activeTabHeight,
@@ -96,7 +97,9 @@ class CustomTopTab extends Component {
       selectedTabIndex,
       animationValues
     } = this.state;
-    if (tabs[activeIndex].x && selectedTabIndex != activeIndex) {
+    console.log('-------------',tabs[activeIndex].x, selectedTabIndex, activeIndex);
+    if (tabs[activeIndex].x != 'undefined' && selectedTabIndex != activeIndex) {
+      console.log('-------------IF');
       this.handleOnPress(tabs[activeIndex], activeIndex);
     }
     const isRTL = false
@@ -113,9 +116,9 @@ class CustomTopTab extends Component {
               {
                 ...styles.animatedTab,
                 // height: activeTabHeight,
-                // width: activeTabWidth,
-                width: width(27.5),
-                height: height(5),
+                width: activeTabWidth,
+                // width: width(27),
+                height: height(4),
                 transform: [
                   {
                     //scaleX: -1,
@@ -149,6 +152,7 @@ class CustomTopTab extends Component {
                   this.handleOnPress(tempItem, key);
                 }}>
                 <IconWithText
+                  customIcon={true}
                   iconName={item.iconName}
                   text={item.title}
                   disabled
@@ -191,7 +195,8 @@ const styles = StyleSheet.create({
   animatedTab: {
     position: 'absolute',
     left: 0,
-    backgroundColor: '#FFFFFF40',
+    // backgroundColor: '#FFFFFF40',
+    backgroundColor: '#14682D',
     borderRadius: 100,
   },
 });
