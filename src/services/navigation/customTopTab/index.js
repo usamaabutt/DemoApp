@@ -11,7 +11,13 @@ import {
 import { IconWithText } from '../../../components';
 import { height, width, totalSize } from 'react-native-dimension';
 import { appStyles, sizes, appIcons } from '../../utilities';
+const arr = {
+  0: 0,
+  1: 120,
+  2: 250,
+}
 
+const isRTL = true;
 class CustomTopTab extends Component {
   constructor(props) {
     super(props);
@@ -48,10 +54,10 @@ class CustomTopTab extends Component {
     this.props.navigation.navigate(routeName);
   };
   handleTabSlide = (x, height, width) => {
-    let { activeTabTranslateX, activeTabHeight, activeTabWidth } = this.state;
-    console.log(x, height, width);
+    let { activeTabTranslateX, activeTabHeight, activeTabWidth, selectedTabIndex } = this.state;
+    console.log('in-handleTabSlide----', x, height, width);
     Animated.spring(activeTabTranslateX, {
-      toValue: x,
+      toValue: isRTL ? -1 * arr[selectedTabIndex] : arr[selectedTabIndex],
       duration: 250,
       useNativeDriver: false,
     }).start();
@@ -85,7 +91,7 @@ class CustomTopTab extends Component {
   }
   render() {
     const { state, descriptors, navigation } = this.props;
-    console.log("state==>", state);
+    console.log("state==>", state, descriptors, navigation);
     const { routes, index } = state;
     const activeIndex = index;
     console.log("activeIndex==>", activeIndex)
@@ -97,18 +103,19 @@ class CustomTopTab extends Component {
       selectedTabIndex,
       animationValues
     } = this.state;
-    console.log('-------------',tabs[activeIndex].x, selectedTabIndex, activeIndex);
+    console.log('-------------',tabs[activeIndex].x);
     if (tabs[activeIndex].x != 'undefined' && selectedTabIndex != activeIndex) {
-      console.log('-------------IF');
+      console.log('-------------IF', tabs[activeIndex],activeIndex);
       this.handleOnPress(tabs[activeIndex], activeIndex);
     }
-    const isRTL = false
+
     return (
       <View
         style={{
-          backgroundColor: 'skyblue',
+          backgroundColor: 'white',
+          borderBottomWidth: 0.6,
+          borderColor: '#E8E8E8',
           paddingTop: Platform.OS === 'ios' ? sizes.statusBarHeight * 1.5 : 0,
-          // transform: [{scaleX: -1}],
         }}>
         <View style={styles.container}>
           <Animated.View
@@ -116,12 +123,11 @@ class CustomTopTab extends Component {
               {
                 ...styles.animatedTab,
                 // height: activeTabHeight,
-                width: activeTabWidth,
-                // width: width(27),
+                // width: activeTabWidth,
+                width: width(27),
                 height: height(4),
                 transform: [
                   {
-                    //scaleX: -1,
                     translateX: activeTabTranslateX,
                   },
                 ],
@@ -159,10 +165,10 @@ class CustomTopTab extends Component {
                   textStyle={[
                     appStyles.textRegular,
                     appStyles.textBold,
-                    appStyles.textWhite,
-                  ]}
+                  ],
+                  {fontWeight: '500', color: state.index == key ? '#FFFFFF' : '#14682D'}}
                   iconSize={totalSize(2.5)}
-                  tintColor={'#FFFFFF'}
+                  tintColor={state.index == key ? '#FFFFFF' : '#14682D'}
                 />
               </TouchableOpacity>
             );
@@ -183,7 +189,6 @@ const styles = StyleSheet.create({
     // width: '100%',
     marginHorizontal: width(7.5),
     paddingVertical: height(2),
-
     justifyContent: 'space-between',
   },
   tabBarItem: {

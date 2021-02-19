@@ -1,11 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {View, Platform, StyleSheet, Text, Image} from 'react-native';
-import {Wrapper} from '../../../components';
+import {Wrapper, SearchBar, HomeCard} from '../../../components';
 import {height, width} from 'react-native-dimension';
 import {colors, appIcons} from '../../../services';
 import LinearGradient from 'react-native-linear-gradient';
-import Bike from 'react-native-vector-icons/MaterialCommunityIcons';
-import Car from 'react-native-vector-icons/FontAwesome';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const Home = ({navigation}) => {
@@ -13,7 +11,7 @@ const Home = ({navigation}) => {
 
   const [enableScroll, setEnableScroll] = useState(false);
   const [showHideModal, setShowHideModal] = useState(false);
-  const [showShadow, setShadow] = useState(false);
+  const [showShadow, setShadow] = useState(true);
   const [ShadowValue, setShadowValue] = useState(0);
 
   // useEffect(() => {
@@ -47,26 +45,30 @@ const Home = ({navigation}) => {
         scrollEventThrottle={5}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{width: '100%', alignItems: 'center'}}>
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
       </ScrollView>
     );
   };
   return (
-    <Wrapper flex={1} style={{backgroundColor: 'skyblue'}}>
+    <Wrapper flex={1} style={{backgroundColor: 'white'}}>
       <View style={styles.bottomSheetContainer}>
+        <SearchBar 
+          placeholder={'Hungry?'}
+          style={{marginTop: 10}}
+        />
         <LinearGradient
           colors={['white', '#ffffff00']}
           style={{
@@ -77,7 +79,7 @@ const Home = ({navigation}) => {
             zIndex: 300,
             right: 0,
             left: 0,
-            top: 15,
+            top: height(7),
           }}
         />
         {renderList()}
@@ -123,7 +125,7 @@ const Home = ({navigation}) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: '80%',
+    width: '96%',
     height: 150,
     backgroundColor: 'pink',
     marginVertical: 10,
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
   },
   bottomSheetContainer: {
     backgroundColor: '#ffffff',
-    padding: 16,
+    paddingHorizontal: 16,
     height: height(85),
     zIndex: 500,
     ...Platform.select({

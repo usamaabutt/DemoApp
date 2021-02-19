@@ -1,6 +1,6 @@
 // leave off @2x/@3x
 const appImages = {
-
+    food: require('../../../assets/images/food.png'),
 }
 
 const appIcons = {
@@ -11,6 +11,8 @@ const appIcons = {
     coffee: require('../../../assets/icons/coffee.png'),
     food: require('../../../assets/icons/food.png'),
     market: require('../../../assets/icons/market.png'),
+    search: require('../../../assets/icons/search.png'),
+    profile: require('../../../assets/icons/profile.png'),
 }
 
 const appSvgs = {

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {View, Platform, StyleSheet, Text} from 'react-native';
-import {Wrapper} from '../../../components';
+import {Wrapper, HomeCard} from '../../../components';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {height, width} from 'react-native-dimension';
 import {colors} from '../../../services';
@@ -53,25 +53,25 @@ const Promos = ({navigation}) => {
         showsVerticalScrollIndicator={false}
         style={{flex: 1}}
         contentContainerStyle={{width: '100%', alignItems: 'center'}}>
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
-        <View style={styles.cardContainer} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
+        <HomeCard style={{}} />
       </ScrollView>
     );
   };
   return (
-    <Wrapper flex={1} style={{backgroundColor: 'skyblue', zIndex: 100}}>
+    <Wrapper flex={1} style={{backgroundColor: 'white', zIndex: 100}}>
       <View style={styles.bottomSheetContainer}>
         <LinearGradient
           colors={['white', '#ffffff00']}
@@ -83,7 +83,7 @@ const Promos = ({navigation}) => {
             zIndex: 300,
             right: 0,
             left: 0,
-            top: 15,
+            top: 0,
           }}
         />
         {renderList()}
@@ -94,7 +94,7 @@ const Promos = ({navigation}) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: '80%',
+    width: '96%',
     height: 150,
     backgroundColor: 'pink',
     marginVertical: 10,
@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
   },
   bottomSheetContainer: {
     backgroundColor: '#ffffff',
-    padding: 16,
+    // padding: 16,
+    paddingHorizontal: 16,
     height: height(85),
     width: width(100),
     alignSelf: 'center',

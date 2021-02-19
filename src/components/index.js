@@ -17,5 +17,6 @@ export * from './modals'
 export * from './modals'
 export * from './customBottomSheet'
 export * from './bottomSheet'
+export * from './searchBar'
 
 
