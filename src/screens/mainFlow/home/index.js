@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, Platform, StyleSheet, Text} from 'react-native';
+import {View, Platform, StyleSheet, Text, Image} from 'react-native';
 import {Wrapper} from '../../../components';
 import {height, width} from 'react-native-dimension';
-import {colors} from '../../../services';
+import {colors, appIcons} from '../../../services';
 import LinearGradient from 'react-native-linear-gradient';
 import Bike from 'react-native-vector-icons/MaterialCommunityIcons';
 import Car from 'react-native-vector-icons/FontAwesome';
@@ -86,36 +86,32 @@ const Home = ({navigation}) => {
             <View style={styles.row}>
               <View style={styles.iconView}>
                 <View
-                  style={[styles.iconContainer, {backgroundColor: 'green'}]}>
-                  <Bike name={'bike'} size={18} color={'white'} />
+                  style={[styles.iconContainer, {backgroundColor: '#00AED6'}]}>
+                  <Image source={appIcons.med} style={{}} />
                 </View>
-                <Text style={styles.textIcon}>GoRide</Text>
+                <Text style={styles.textIcon}>Med</Text>
               </View>
 
               <View style={styles.iconView}>
                 <View
-                  style={[styles.iconContainer, {backgroundColor: 'green'}]}>
-                  <Car name={'car'} size={18} color={'white'} />
+                  style={[styles.iconContainer, {backgroundColor: '#00AA13'}]}>
+                  <Image source={appIcons.coffee} style={{}} />
                 </View>
-                <Text style={styles.textIcon}>GoCar</Text>
+                <Text style={styles.textIcon}>Coffee</Text>
               </View>
 
               <View style={styles.iconView}>
-                <View style={styles.iconContainer}>
-                  <Bike
-                    name={'silverware-fork-knife'}
-                    size={18}
-                    color={'white'}
-                  />
+                <View style={[styles.iconContainer, {backgroundColor: '#F06400'}]}>
+                  <Image source={appIcons.food} style={{}} />
                 </View>
-                <Text style={styles.textIcon}>GoFood</Text>
+                <Text style={styles.textIcon}>Food</Text>
               </View>
 
               <View style={styles.iconView}>
-                <View style={styles.iconContainer}>
-                  <Car name={'shopping-cart'} size={18} color={'white'} />
+                <View style={[styles.iconContainer, {backgroundColor: '#ED2736'}]}>
+                  <Image source={appIcons.market} style={{}} />
                 </View>
-                <Text style={styles.textIcon}>GoMart</Text>
+                <Text style={styles.textIcon}>Market</Text>
               </View>
             </View>
           </View>
@@ -174,7 +170,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.appBgColor3,
   },
   modalContainer: {
-    height: 70,
+    height: 90,
     width: width(90),
     backgroundColor: 'white',
     borderRadius: 50,
@@ -204,8 +200,8 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     backgroundColor: 'red',
-    height: 30,
-    width: 30,
+    height: 45,
+    width: 45,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
@@ -215,7 +211,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textIcon: {
-    fontSize: 10,
+    fontSize: 14,
     marginTop: 10,
   },
 });
