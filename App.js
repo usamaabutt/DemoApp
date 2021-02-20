@@ -6,7 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    I18nManager.forceRTL(true);
+    I18nManager.forceRTL(false);
   }
 
   render() {
