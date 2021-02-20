@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {I18nManager} from 'react-native';
+import {I18nManager, SafeAreaView} from 'react-native';
 import {Navigation} from './src/services';
 
 class App extends Component {
@@ -10,7 +10,11 @@ class App extends Component {
   }
 
   render() {
-    return <Navigation />;
+    return (
+      <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+        <Navigation />
+      </SafeAreaView>
+    )
   }
 }
 

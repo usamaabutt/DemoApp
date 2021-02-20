@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, I18nManager } from 'react-native'
 import { Icon } from 'react-native-elements';
 import { height, totalSize, width } from 'react-native-dimension';
 import { colors, appStyles, sizes } from '../../services';
@@ -96,7 +96,7 @@ export const TouchableCustomIcon = ({ icon, size, animation, duration, color, on
 export const IconWithText = ({ text, disabled, containerStyle, title, customIcon, onPress, tintColor, iconName, iconType, iconSize, textStyle, titleStyle, direction, iconStyle }) => {
     let defaulSize = totalSize(2.5);
     return (
-        <TouchableOpacity disabled={disabled} activeOpacity={1} onPress={onPress} style={[{ flexDirection: direction ? direction : 'row', alignItems: 'center', }, containerStyle]}>
+        <TouchableOpacity disabled={disabled} activeOpacity={1} onPress={onPress} style={[{ flexDirection: direction ? direction : 'row', alignItems: 'center' }, containerStyle]}>
             {
                 customIcon ?
                     <Image

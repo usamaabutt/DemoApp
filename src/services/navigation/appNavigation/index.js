@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Platform} from 'react-native';
+import {I18nManager} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {routes, headers} from '../../constants';
 import {Home, Promos, Chat} from '../../../screens/mainFlow';
@@ -7,7 +7,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import CustomTopTab from '../customTopTab';
 const AppStack = createStackNavigator();
 const TopTab = createMaterialTopTabNavigator();
-
+const isRTL = I18nManager.isRTL;
 const MainTopTab = () => {
   return (
     <TopTab.Navigator
@@ -15,9 +15,9 @@ const MainTopTab = () => {
       tabBar={(props) => <CustomTopTab {...props} />}
       // initialRouteName={routes.home}
     >
-      <TopTab.Screen name={routes.promos} component={Promos} />
+      <TopTab.Screen name={routes.promos} component={isRTL ? Chat : Promos} />
       <TopTab.Screen name={routes.home} component={Home} />
-      <TopTab.Screen name={routes.chat} component={Chat} />
+      <TopTab.Screen name={routes.chat} component={isRTL ? Promos : Chat} />
     </TopTab.Navigator>
   );
 };

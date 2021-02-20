@@ -18,7 +18,7 @@ export const HomeCard = ({style}) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: height(25),
+        // height: height(25),
         width: width(91),
         marginTop: 17,
         backgroundColor: 'white',

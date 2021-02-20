@@ -1,13 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, Platform, StyleSheet, Text} from 'react-native';
+import {View, Platform, StyleSheet, I18nManager, Text} from 'react-native';
 import {Wrapper, HomeCard} from '../../../components';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {height, width} from 'react-native-dimension';
 import {colors} from '../../../services';
 import LinearGradient from 'react-native-linear-gradient';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import RNRestart from 'react-native-restart'; // Import package from node modules
 
+const isRTL = I18nManager.isRTL;
 const Promos = ({navigation}) => {
   let scrollRef = useRef(null);
 
@@ -53,6 +54,12 @@ const Promos = ({navigation}) => {
         showsVerticalScrollIndicator={false}
         style={{flex: 1}}
         contentContainerStyle={{width: '100%', alignItems: 'center'}}>
+        <TouchableOpacity style={styles.button} onPress={() => {
+          I18nManager.forceRTL(!isRTL)
+          RNRestart.Restart();
+        }}>
+          <Text style={{color: 'white', fontSize: 18}}>{I18nManager.isRTL ? 'Currently app in RTL' : 'Currently app in LTR'}</Text>
+        </TouchableOpacity>
         <HomeCard style={{}} />
         <HomeCard style={{}} />
         <HomeCard style={{}} />
@@ -118,7 +125,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     // padding: 16,
     paddingHorizontal: 16,
-    height: height(85),
+    height: '100%',
     width: width(100),
     alignSelf: 'center',
     // zIndex: 500,
@@ -187,6 +194,15 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 10,
   },
+  button: {
+    height: height(6), 
+    width: width(80), 
+    backgroundColor: 'black', 
+    borderRadius: 30, 
+    marginTop: height(2),
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 export default Promos;

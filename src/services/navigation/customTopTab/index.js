@@ -6,18 +6,19 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Animated,
-  Platform
+  I18nManager
 } from 'react-native';
 import { IconWithText } from '../../../components';
 import { height, width, totalSize } from 'react-native-dimension';
-import { appStyles, sizes, appIcons } from '../../utilities';
-const arr = {
-  0: 0,
-  1: 120,
-  2: 250,
-}
+import { appStyles, sizes, appIcons, StatusBarHeight } from '../../utilities';
 
-const isRTL = true;
+const isRTL = I18nManager.isRTL;
+
+const tabsPoints = {
+  0: isRTL ? -width(3) : 0,
+  1: isRTL ? width(28) : width(30),
+  2: isRTL ? width(59) : width(60),
+}
 class CustomTopTab extends Component {
   constructor(props) {
     super(props);
@@ -42,8 +43,28 @@ class CustomTopTab extends Component {
           route: 'chat',
         },
       ],
+      tabsRTL: [
+        {
+          title: 'Chat',
+          iconName: appIcons.chat,
+          iconType: 'ionicon',
+          route: 'promos',
+        },
+        {
+          title: 'Home',
+          iconName: appIcons.home,
+          iconType: 'ionicon',
+          route: 'home',
+        },
+        {
+          title: 'Promos',
+          iconName: appIcons.promo,
+          iconType: 'ionicon',
+          route: 'chat',
+        },
+      ],
       animationValues: [],
-      activeTabTranslateX: new Animated.Value(0),
+      activeTabTranslateX: new Animated.Value(isRTL ? width(3) : 0),
       activeTabWidth: new Animated.Value(0),
       activeTabHeight: new Animated.Value(0),
       selectedTabIndex: 0,
@@ -57,7 +78,7 @@ class CustomTopTab extends Component {
     let { activeTabTranslateX, activeTabHeight, activeTabWidth, selectedTabIndex } = this.state;
     console.log('in-handleTabSlide----', x, height, width);
     Animated.spring(activeTabTranslateX, {
-      toValue: isRTL ? -1 * arr[selectedTabIndex] : arr[selectedTabIndex],
+      toValue: isRTL ? -1 * tabsPoints[selectedTabIndex] : tabsPoints[selectedTabIndex],
       duration: 250,
       useNativeDriver: false,
     }).start();
@@ -96,6 +117,7 @@ class CustomTopTab extends Component {
     const activeIndex = index;
     console.log("activeIndex==>", activeIndex)
     const {
+      tabsRTL,
       tabs,
       activeTabHeight,
       activeTabTranslateX,
@@ -109,13 +131,15 @@ class CustomTopTab extends Component {
       this.handleOnPress(tabs[activeIndex], activeIndex);
     }
 
+    let renderTabs = isRTL ? tabsRTL : tabs;
+
     return (
       <View
         style={{
           backgroundColor: 'white',
           borderBottomWidth: 0.6,
           borderColor: '#E8E8E8',
-          paddingTop: Platform.OS === 'ios' ? sizes.statusBarHeight * 1.5 : 0,
+          // paddingTop: Platform.OS === 'ios' ? sizes.statusBarHeight * 1.5 : 0,
         }}>
         <View style={styles.container}>
           <Animated.View
@@ -123,9 +147,9 @@ class CustomTopTab extends Component {
               {
                 ...styles.animatedTab,
                 // height: activeTabHeight,
-                // width: activeTabWidth,
-                width: width(27),
-                height: height(4),
+                width: activeTabWidth,
+                width: isRTL ? width(25) : width(27),
+                height: height(4.5),
                 transform: [
                   {
                     translateX: activeTabTranslateX,
@@ -134,7 +158,7 @@ class CustomTopTab extends Component {
               },
             ]}
           />
-          {tabs.map((item, key) => {
+          {renderTabs.map((item, key) => {
             const tempItem = isRTL ? tabs[tabs.length - (key + 1)] : item
             return (
               <TouchableOpacity

@@ -45,6 +45,10 @@ const Home = ({navigation}) => {
         scrollEventThrottle={5}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{width: '100%', alignItems: 'center'}}>
+        <SearchBar 
+          placeholder={'Hungry?'}
+          style={{marginTop: 10, bottom: -15}}
+        />
         <HomeCard style={{}} />
         <HomeCard style={{}} />
         <HomeCard style={{}} />
@@ -65,10 +69,6 @@ const Home = ({navigation}) => {
   return (
     <Wrapper flex={1} style={{backgroundColor: 'white'}}>
       <View style={styles.bottomSheetContainer}>
-        <SearchBar 
-          placeholder={'Hungry?'}
-          style={{marginTop: 10}}
-        />
         <LinearGradient
           colors={['white', '#ffffff00']}
           style={{
@@ -79,7 +79,7 @@ const Home = ({navigation}) => {
             zIndex: 300,
             right: 0,
             left: 0,
-            top: height(7),
+            top: 0,
           }}
         />
         {renderList()}
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   bottomSheetContainer: {
     backgroundColor: '#ffffff',
     paddingHorizontal: 16,
-    height: height(85),
+    height: '100%',
     zIndex: 500,
     ...Platform.select({
       ios: {
